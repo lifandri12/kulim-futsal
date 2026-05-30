@@ -65,3 +65,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/users', [AdminController::class, 'users'])->name('users');
     Route::delete('/users/{id}', [AdminController::class, 'userDelete'])->name('users.delete');
 });
+
+Route::get('/gas-migrasi', function () {
+    \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true]);
+    \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
+    return 'Mantap! Migrasi Database Berhasil!';
+});
